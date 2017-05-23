@@ -1,0 +1,14 @@
+{
+    "name": "spring",
+    "version": "1.0.0",
+    "description": "A spring simulation.",
+    "main": "spring.js",
+    "scripts": {
+        "build": "webpack ./test.js bundle.js"
+    },
+    "author": "Sam Olaogun",
+    "license": "MIT",
+    "devDependencies": {
+        "webpack": "^2.6.0"
+    }
+}
