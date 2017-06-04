@@ -22,7 +22,7 @@ const requestAnimationFrame =
  * @returns {Object}
  */
 const Spring = function(callback, startPos = 0, endPos = 0, opts = {}) {
-    const { d = 1, k = .25 } = opts;
+    const { d = 1, k = .25, v = 0 } = opts;
 
     this.callback = callback;
 
@@ -39,7 +39,7 @@ const Spring = function(callback, startPos = 0, endPos = 0, opts = {}) {
     this.m = 10;
 
     // v - initial velocity
-    this.v = 0;
+    this.v = v;
 
     // x - initial position
     this.x = startPos;

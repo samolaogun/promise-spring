@@ -55,6 +55,7 @@ Promise.all([
 | -------- | ----------------------- | ------------- |
 | k        | stiffness of the spring | 1             |
 | d        | damping of the spring   | 0.25          |
+| v        | initial velocity of the spring   | 0          |
 
 ## License
 
