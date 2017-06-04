@@ -26,6 +26,9 @@ const Spring = function(callback, startPos = 0, endPos = 0, opts = {}) {
 
     this.callback = callback;
 
+    // precision - prevent integer overflow
+    this.precision = 0.0001;
+
     // k - spring constant (push back intensity)
     this.k = k;
 
@@ -40,6 +43,9 @@ const Spring = function(callback, startPos = 0, endPos = 0, opts = {}) {
 
     // x - initial position
     this.x = startPos;
+
+    // xi - record of initial position
+    this.xi = startPos;
 
     // xf - final position
     this.xf = endPos;
@@ -77,40 +83,51 @@ Spring.prototype._step = function() {
         if (this.first) {
             this.first = !this.first;
             this.startTime = performance.now() / 1000;
-        } else if (this.xf - this.x === 0) {
-            this.mayStep = false;
-            this.resolve(this.xf);
-            return;
         }
 
-        // t - current time in seconds ? assume that each frame is a second
-        const t = (performance.now() / 1000) - this.startTime;
+        // t - current time in seconds, don't need that microsecond accuracy
+        const t = +((performance.now() / 1000) - this.startTime).toPrecision(4);
 
         // dx - displacement, right is positive
-        const dx = this.x - this.xf;
+        const dx = +(this.x - this.xf);
 
         // fs (f spring) - spring force
-        const fs = -this.k * dx;
+        const fs = +(-this.k * dx);
 
         // fd (f damping) - damping force
-        const fd = -this.d * this.v;
+        const fd = +(-this.d * this.v);
+
+        let wasSmaller = this.ft < this.precision && this.ft > -this.precision;
 
         // ft (f total) - total force
-        this.ft = fs + fd;
+        this.ft = +(fs + fd);
 
         // a - acceleration (f = ma => a = f/m)
-        const a = this.ft / this.m;
+        const a = +(this.ft / this.m);
 
         // v - velocity, velocity == current velocity + delta velocity (a * t)
-        this.v = this.v + (a * t);
+        this.v = +(this.v + (a * t));
 
         // x - current position (v = px/s, v * t = px)
-        this.x = this.x + (this.v * t);
+        this.x = +(this.x + (this.v * t));
 
         this.callback({
             x: this.x,
             v: this.v
         });
+
+        let isSmaller = this.ft < this.precision && this.ft > -this.precision;
+
+        if (wasSmaller && isSmaller) {
+            this.callback({
+                x: this.xf,
+                v: this.v
+            });
+
+            this.mayStep = false;
+            this.resolve(this.xf);
+            return;
+        }
 
         requestAnimationFrame(this._step);
     }

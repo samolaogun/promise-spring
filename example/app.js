@@ -16,23 +16,28 @@ const style = getComputedStyle(circle);
 const width = parseInt(style.width);
 const height = parseInt(style.height);
 
+const transform = {
+    x: width / 2,
+    y: height / 2
+};
+
 const callback1 = e =>
-    circle.style.left = `${e.x}px`;
+    circle.style.transform = `translate(${transform.x = e.x}px, ${transform.y}px)`;
 
 const callback2 = e =>
-    circle.style.top = `${e.x}px`;
+    circle.style.transform = `translate(${transform.x}px, ${transform.y = e.x}px)`;
 
 let queue = Promise.resolve([width / 2, height / 2]);
 document.addEventListener('click', e => {
     queue = queue.then(([x, y]) =>
         Promise.all([
             new Spring(callback1, x, e.clientX - width / 2, {
-                k: 1,
-                d: 5
+                k: .2,
+                d: 1
             }),
             new Spring(callback2, y, e.clientY - height / 2, {
-                k: 1,
-                d: 5
+                k: .2,
+                d: 1
             })
         ]));
 });
