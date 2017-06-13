@@ -13,7 +13,7 @@ The only currently availible option is UMD, which can be found in the "dist" fol
 const Spring = new Spring(callback, [, startingValue [, endingValue]][,options]);
 ```
 - callback
-    called once each frame, add your own logic; argument list below. Required field.
+    - called once each frame, add your own logic; argument list below. Required field.
     - `x` - current position of the spring
     - `v` - current velocity of the spring
 - startingValue
