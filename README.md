@@ -1,6 +1,11 @@
-# Spring
+# Promise Spring
 
-Physics has always been an interest of mine. Here's a simple simulation of Hooke's law and Damping with JavaScript. It's promise based, so using it at first might be a bit tricky, but it plays nicely with the Web Animations API. Here it goes.
+"Promise Spring" is a spring dynamics simulation in JavaScript. Plainly, it's promise based animation system, useful for animating content in a sequential manner.
+
+## Installation
+`npm install promise-spring`
+`yarn install promise-spring`
+
 
 ```javascript
 const Spring = new Spring(callback, [, startingValue [, endingValue]][,options]);
