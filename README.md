@@ -3,29 +3,31 @@
 "Promise Spring" is a spring dynamics simulation in JavaScript. Plainly, it's promise based animation system, useful for animating content in a sequential manner.
 
 ## Installation
-`npm install promise-spring`
-`yarn install promise-spring`
+The only currently availible option is UMD, which can be found in the "dist" folder.
+```
+<script src="promise-spring.js"></script>
+```
 
-
+## Usage
 ```javascript
 const Spring = new Spring(callback, [, startingValue [, endingValue]][,options]);
 ```
-
-| Parameter      | Description                              | Default Value     |
-| ------------- | ---------------------------------------- | ----------------- |
-| callback      | called once each frame, add your own logic; argument list below | Required field.   |
-| startingValue | value that the spring should start at    | 0                 |
-| endingValue   | value that the spring should animate to  | 100               |
-| options       | options for how the spring should animate | Refer to options. |
-
-## Callback
-
-| Parameter | Description                    |
-| -------- | ------------------------------ |
-| x        | current position of the spring |
-| v        | current velocity of the spring |
-
-## Usage
+- callback
+    called once each frame, add your own logic; argument list below. Required field.
+    - `x` - current position of the spring
+    - `v` - current velocity of the spring
+- startingValue
+    - value that the spring should start at. 
+- endingValue
+    - value that the spring should animate to
+- options
+    options for how the spring should animate.
+    
+    - `k` **number** stiffness of the spring, numbers from 0 to 1 work best.
+    - `d` **number** damping of the spring, numbers from 0 to 1 work best.
+    - `v` **number** inital velocity of the spring.
+    
+## Quick Start Guide
 
 A promise based system yields many opportunities as to how you carry out your animations. Additionally, the callback architecture allows you to animate a wide range of properties at your own discretion.
 
@@ -53,15 +55,6 @@ Promise.all([
     ])
 );
 ```
-
-## Options
-
-| Property | Description             | Default Value |
-| -------- | ----------------------- | ------------- |
-| k        | stiffness of the spring | 1             |
-| d        | damping of the spring   | 0.25          |
-| v        | initial velocity of the spring   | 0          |
-
 ## License
 
 See it [here](http://github.com/samolaogun/spring/blob/master/LICENSE).
