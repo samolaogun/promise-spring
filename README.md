@@ -4,7 +4,7 @@
 
 ## Installation
 The only currently availible option is UMD, which can be found in the "dist" folder.
-```
+```html
 <script src="promise-spring.js"></script>
 ```
 
